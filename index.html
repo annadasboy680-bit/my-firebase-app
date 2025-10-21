@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Study Point Special Batch 26</title>
+  <script type="module">
+    // Firebase import
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-auth.js";
+
+    // তোমার Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDQyAFw6Gdhlt8CCusZRF7jeCdCZoear38",
+      authDomain: "study-point-special-batch.firebaseapp.com",
+      projectId: "study-point-special-batch",
+      storageBucket: "study-point-special-batch.firebasestorage.app",
+      messagingSenderId: "208457448749",
+      appId: "1:208457448749:web:973bb08ef495c9e99627a4"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    // Sign Up function
+    window.signup = function () {
+      const email = document.getElementById("signup-email").value;
+      const password = document.getElementById("signup-password").value;
+
+      createUserWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("✅ Account created successfully!");
+          document.getElementById("login-section").style.display = "block";
+          document.getElementById("signup-section").style.display = "none";
+        })
+        .catch((error) => {
+          alert("❌ " + error.message);
+        });
+    };
+
+    // Login function
+    window.login = function () {
+      const email = document.getElementById("login-email").value;
+      const password = document.getElementById("login-password").value;
+
+      signInWithEmailAndPassword(auth, email, password)
+        .then(() => {
+          alert("🎉 Login successful!");
+          document.getElementById("app-section").style.display = "block";
+          document.getElementById("login-section").style.display = "none";
+        })
+        .catch((error) => {
+          alert("❌ " + error.message);
+        });
+    };
+
+    // Logout function
+    window.logout = function () {
+      signOut(auth).then(() => {
+        alert("🚪 Logged out successfully!");
+        document.getElementById("app-section").style.display = "none";
+        document.getElementById("login-section").style.display = "block";
+      });
+    };
+  </script>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #2c3e50, #3498db);
+      color: white;
+      text-align: center;
+      padding: 25px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      margin: 8px;
+      border: none;
+      border-radius: 6px;
+    }
+    button {
+      background: #1abc9c;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .card {
+      background: rgba(0,0,0,0.3);
+      padding: 20px;
+      border-radius: 12px;
+      margin: 10px auto;
+      max-width: 350px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>📘 Study Point Special Batch 26</h2>
+  <p>Login বা Sign Up করে ক্লাস ইনফো ও নোটিশ দেখো 🔐</p>
+
+  <div id="signup-section" class="card">
+    <h3>🧾 Create Account</h3>
+    <input id="signup-email" type="email" placeholder="Email লিখো"><br>
+    <input id="signup-password" type="password" placeholder="Password লিখো"><br>
+    <button onclick="signup()">Sign Up</button><br>
+    <p>Already have an account? <a href="#" onclick="toggleLogin()">Login</a></p>
+  </div>
+
+  <div id="login-section" class="card" style="display:none;">
+    <h3>🔑 Student Login</h3>
+    <input id="login-email" type="email" placeholder="Email"><br>
+    <input id="login-password" type="password" placeholder="Password"><br>
+    <button onclick="login()">Login</button>
+  </div>
+
+  <div id="app-section" style="display:none;">
+    <h3>🎓 Welcome to Study Point!</h3>
+    <p>এখানে তুমি Lecture, Notice, Result, Attendance দেখতে পারবে।</p>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    function toggleLogin() {
+      document.getElementById("signup-section").style.display = "none";
+      document.getElementById("login-section").style.display = "block";
+    }
+  </script>
+</body>
+</html>
